@@ -1,0 +1,94 @@
+<div id="page-request" class="page">
+    <div class="section" style="padding-top: 3rem;">
+      <div class="form-container" id="request-form-container">
+        <div class="form-title">🛠️ اطلب خدمة</div>
+        <div class="form-sub">اكتب تفاصيل طلبك وهنوصله لأقرب صنايعي متاح</div>
+        <div class="form-group">
+          <label>نوع الخدمة</label>
+          <select id="req-service">
+            <option value="">اختار التخصص</option>
+            <option>⚡ كهرباء</option>
+            <option>🔩 سباكة</option>
+            <option>🪵 نجارة</option>
+            <option>🎨 دهانات</option>
+            <option>❄️ تكييف</option>
+            <option>🏗️ بناء وتشييد</option>
+            <option>🪟 ألومنيوم</option>
+            <option>🏠 سيراميك وبلاط</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>وصف المشكلة أو الطلب</label>
+          <textarea id="req-desc"
+            placeholder="اوصف المشكلة بتفصيل... مثلاً: فيه عطل في الكهرباء في أوضة النوم، المفتاح مش شغال وفيه شرارة"></textarea>
+        </div>
+        <div class="form-group">
+          <label>صور المشكلة (اختياري)</label>
+          <div id="img-upload-area" onclick="document.getElementById('req-images').click()"
+            style="border:2px dashed rgba(200,135,58,0.4);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(200,135,58,0.04);"
+            onmouseover="this.style.borderColor='rgba(200,135,58,0.8)'"
+            onmouseout="this.style.borderColor='rgba(200,135,58,0.4)'">
+            <div style="font-size:28px;margin-bottom:6px;">📷</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:13px;">اضغط لإضافة صور (حد أقصى 3 صور)</div>
+          </div>
+          <input type="file" id="req-images" multiple accept="image/*" style="display:none"
+            onchange="previewImages(this)">
+          <div id="img-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>اسمك</label>
+            <input type="text" id="req-name" placeholder="محمد أحمد">
+          </div>
+          <div class="form-group">
+            <label>رقم التليفون</label>
+            <input type="tel" id="req-phone" placeholder="01xxxxxxxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>العنوان بالتفصيل</label>
+          <input type="text" id="req-address" placeholder="مثلاً: شارع الجيش، الكيلو 6، أسوان">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>المنطقة</label>
+            <select id="req-area">
+              <option value="">اختار المنطقة</option>
+              <option>أسوان - وسط البلد</option>
+              <option>الكيلو 6</option>
+              <option>دراو</option>
+              <option>كوم أمبو</option>
+              <option>إدفو</option>
+              <option>الشلال</option>
+              <option>أبو سمبل</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>الوقت المفضل</label>
+            <select id="req-time">
+              <option>في أقرب وقت</option>
+              <option>الصبح (8 - 12)</option>
+              <option>الضهر (12 - 5)</option>
+              <option>المساء (5 - 9)</option>
+              <option>بكرة الصبح</option>
+            </select>
+          </div>
+        </div>
+        <button class="submit-btn" onclick="submitRequest()">
+          <i class="fas fa-paper-plane"></i> إرسال الطلب
+        </button>
+      </div>
+
+      <div class="form-container success-box fade-up" id="success-box" style="display:none;">
+        <div class="success-icon">✅</div>
+        <h2>تم إرسال طلبك بنجاح!</h2>
+        <p>بنبحث دلوقتي عن أقرب صنايعي متاح في منطقتك<br>هيتواصل معاك خلال 15 دقيقة على الأكثر</p>
+        <div class="order-number" id="order-num"># رقم الطلب: ASW-0000</div>
+        <p style="margin-top: 1rem; font-size: 13px; color: rgba(255,255,255,0.4);">هتلقى رسالة على تليفونك بتفاصيل
+          الصنايعي اللي هييجيلك</p>
+        <button class="btn-primary" style="margin: 1.5rem auto 0; display: inline-flex;" onclick="resetRequest()">
+          طلب خدمة تانية 🔁
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,540 @@
+<div id="page-guide" class="page">
+  <style>
+    .guide-hero {
+      background: linear-gradient(160deg, #1C1A17 0%, #1a1208 60%, #0d0a05 100%);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.15);
+    }
+
+    .guide-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(200,135,58,0.07)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .guide-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200, 135, 58, 0.12);
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .guide-hero h1 {
+      font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+      position: relative;
+      margin-bottom: 0.7rem;
+    }
+
+    .guide-hero h1 span {
+      color: var(--gold);
+    }
+
+    .guide-hero p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    .guide-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      padding: 1.5rem 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .guide-tab {
+      padding: 10px 28px;
+      border-radius: 25px;
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .guide-tab.active {
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(200, 135, 58, 0.35);
+    }
+
+    .guide-tab:hover:not(.active) {
+      border-color: rgba(200, 135, 58, 0.6);
+      color: #fff;
+    }
+
+    .guide-section {
+      display: none;
+      padding: 2rem 1.5rem 4rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .guide-section.active {
+      display: block;
+    }
+
+    .guide-intro {
+      background: rgba(200, 135, 58, 0.07);
+      border: 1px solid rgba(200, 135, 58, 0.2);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .guide-steps-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guide-steps-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 135, 58, 0.2);
+    }
+
+    .guide-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .guide-step:hover {
+      border-color: rgba(200, 135, 58, 0.25);
+    }
+
+    .guide-step-num {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .guide-step-body {
+      flex: 1;
+    }
+
+    .guide-step-body h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .guide-step-body p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+    }
+
+    .guide-step-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .guide-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 2rem;
+    }
+
+    .guide-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .guide-card:hover {
+      border-color: rgba(200, 135, 58, 0.35);
+      background: rgba(200, 135, 58, 0.05);
+    }
+
+    .guide-card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .guide-card h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .guide-card p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.6;
+    }
+
+    .guide-tip {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(46, 204, 113, 0.07);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+    }
+
+    .guide-tip-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .guide-warn {
+      background: rgba(231, 76, 60, 0.07);
+      border-color: rgba(231, 76, 60, 0.2);
+    }
+
+    .guide-warn .guide-tip-icon {
+      color: #E74C3C;
+    }
+
+    .guide-cta {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .guide-cta-btn {
+      padding: 14px 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      border: none;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(200, 135, 58, 0.4);
+      transition: all 0.2s;
+    }
+
+    .guide-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(200, 135, 58, 0.55);
+    }
+
+    @media(max-width:600px) {
+      .guide-hero {
+        padding: 2rem 1rem 1.5rem;
+      }
+
+      .guide-section {
+        padding: 1.5rem 1rem 5rem;
+      }
+
+      .guide-cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+
+  <!-- Hero -->
+  <div class="guide-hero">
+    <div class="guide-hero-badge">📖 دليل الاستخدام</div>
+    <h1>كل حاجة عن <span>منصة صنايعي أسوان</span></h1>
+    <p>دليل شامل يشرح كل أقسام المنصة خطوة بخطوة — سواء كنت عميل أو صنايعي</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="guide-tabs">
+    <button class="guide-tab active" onclick="switchGuideTab('client', this)">👤 أنا عميل</button>
+    <button class="guide-tab" onclick="switchGuideTab('worker', this)">👷 أنا صنايعي</button>
+    <button class="guide-tab" onclick="switchGuideTab('sections', this)">🗺️ أقسام الموقع</button>
+  </div>
+
+  <!-- ====== CLIENT SECTION ====== -->
+  <div class="guide-section active" id="guide-client">
+    <div class="guide-intro">
+      🙋 أهلاً بيك! المنصة دي بتساعدك تلاقي أفضل صنايعي في أسوان بسهولة وسرعة — سواء عندك عطل أو عايز تنفذ مشروع.
+    </div>
+
+    <div class="guide-steps-title">📝 إزاي تطلب خدمة؟</div>
+
+    <div class="guide-step">
+      <div class="guide-step-num">1</div>
+      <div class="guide-step-icon">📱</div>
+      <div class="guide-step-body">
+        <h3>سجّل دخولك أو أنشئ حساب</h3>
+        <p>اضغط "تسجيل الدخول" — أنشئ حساب ببريدك الإلكتروني وكلمة سر، أو سجّل دخول لو عندك حساب.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">2</div>
+      <div class="guide-step-icon">🏪</div>
+      <div class="guide-step-body">
+        <h3>افتح سوق الطلبات</h3>
+        <p>اضغط "اطلب خدمة دلوقتي" من الصفحة الرئيسية أو من القائمة — هيودّيك على سوق الطلبات مباشرة.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">3</div>
+      <div class="guide-step-icon">✍️</div>
+      <div class="guide-step-body">
+        <h3>انشر طلبك</h3>
+        <p>اختار نوع الخدمة، اكتب وصف المشكلة، حدد المنطقة والميزانية — والطلب هيظهر للصنايعية فوراً.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">4</div>
+      <div class="guide-step-icon">💬</div>
+      <div class="guide-step-body">
+        <h3>استقبل العروض وفاوض</h3>
+        <p>الصنايعية هيبعتوا عروض بأسعار — تقدر تقبل، ترفض، أو تتفاوض على السعر من خلال المنصة.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">5</div>
+      <div class="guide-step-icon">✅</div>
+      <div class="guide-step-body">
+        <h3>اقبل العرض وقيّم</h3>
+        <p>لما تقبل العرض، يتواصل معك الصنايعي مباشرة. بعد انتهاء الشغل، قيّمه عشان تفيد غيرك.</p>
+      </div>
+    </div>
+
+    <div class="guide-steps-title" style="margin-top:2rem;">👷 أو احجز صنايعي مباشرة</div>
+    <div class="guide-step">
+      <div class="guide-step-num">1</div>
+      <div class="guide-step-icon">🔍</div>
+      <div class="guide-step-body">
+        <h3>ادخل صفحة الصنايعية</h3>
+        <p>اضغط "الصنايعية" من القائمة — هتلاقي كل الصنايعية المتاحين مع تقييماتهم وتخصصاتهم.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">2</div>
+      <div class="guide-step-icon">🔎</div>
+      <div class="guide-step-body">
+        <h3>فلتر وابحث</h3>
+        <p>استخدم الفلاتر فوق (كهرباء، سباكة، نجارة…) أو ابحث بالاسم أو التخصص لتضيّق النتائج.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">3</div>
+      <div class="guide-step-icon">📅</div>
+      <div class="guide-step-body">
+        <h3>اضغط "احجز دلوقتي"</h3>
+        <p>اختار الصنايعي اللي يناسبك واضغط "احجز دلوقتي" — هتتواصل معاه مباشرة لتحديد الموعد.</p>
+      </div>
+    </div>
+
+    <div class="guide-steps-title" style="margin-top:2rem;">💡 نصايح مهمة</div>
+    <div class="guide-tip"><span class="guide-tip-icon">✅</span> وصّف مشكلتك بالتفصيل — كلما الوصف أوضح، كلما جتلك عروض
+      أدق وأنسب.</div>
+    <div class="guide-tip"><span class="guide-tip-icon">✅</span> حدد ميزانيتك — ده بيساعد الصنايعية يبعتوا عروض مناسبة
+      ليك.</div>
+    <div class="guide-tip"><span class="guide-tip-icon">✅</span> شوف التقييمات قبل ما تحجز — الصنايعية المقيّمين من
+      عملاء حقيقيين في أسوان.</div>
+    <div class="guide-tip guide-warn"><span class="guide-tip-icon">⚠️</span> متدفعش أي فلوس قبل ما الصنايعي يجيلك
+      ويتفقوا على الشغل وجهاً لوجه.</div>
+
+    <div class="guide-cta">
+      <button class="guide-cta-btn" onclick="showPage('client-market')">🏪 افتح السوق دلوقتي</button>
+    </div>
+  </div>
+
+  <!-- ====== WORKER SECTION ====== -->
+  <div class="guide-section" id="guide-worker">
+    <div class="guide-intro">
+      👷 أهلاً بيك يا صنايعي! المنصة دي بتجيبلك طلبات من عملاء أسوان مباشرة على تليفونك — بعمولة بسيطة على كل طلب مكتمل.
+    </div>
+
+    <div class="guide-steps-title">🚀 إزاي تبدأ؟</div>
+
+    <div class="guide-step">
+      <div class="guide-step-num">1</div>
+      <div class="guide-step-icon">📝</div>
+      <div class="guide-step-body">
+        <h3>سجّل كصنايعي</h3>
+        <p>اضغط "إنشاء حساب" واختار "صنايعي" — أدخل اسمك، تخصصك، منطقتك، ورقم تليفونك.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">2</div>
+      <div class="guide-step-icon">✅</div>
+      <div class="guide-step-body">
+        <h3>فعّل حالة "متاح"</h3>
+        <p>من صفحة حسابك، فعّل زر "متاح" — ده بيخليك تظهر للعملاء ويعرفوا إنك شغّال دلوقتي.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">3</div>
+      <div class="guide-step-icon">🏪</div>
+      <div class="guide-step-body">
+        <h3>افتح سوق الطلبات</h3>
+        <p>اضغط "سوق الطلبات" من القائمة — هتشوف كل الطلبات المتاحة في تخصصك في أسوان.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">4</div>
+      <div class="guide-step-icon">💰</div>
+      <div class="guide-step-body">
+        <h3>بعّت عرض سعر</h3>
+        <p>افتح أي طلب يناسبك واضغط "بعّت عرض" — أدخل سعرك ورسالتك للعميل.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-num">5</div>
+      <div class="guide-step-icon">🤝</div>
+      <div class="guide-step-body">
+        <h3>انتظر القبول وتواصل</h3>
+        <p>لو العميل قبل عرضك، هتلاقي رقمه في الطلب وتتواصل معاه مباشرة لتحديد الموعد.</p>
+      </div>
+    </div>
+
+    <div class="guide-steps-title" style="margin-top:2rem;">⭐ إزاي تعلّي تقييمك؟</div>
+    <div class="guide-tip"><span class="guide-tip-icon">⭐</span> اشتغل بجودة — العميل هيقيّمك بعد الشغل، والتقييم العالي
+      بيجيبلك طلبات أكتر.</div>
+    <div class="guide-tip"><span class="guide-tip-icon">⚡</span> رد بسرعة على الطلبات — العروض الأولى أكثر قبولاً من
+      العملاء.</div>
+    <div class="guide-tip"><span class="guide-tip-icon">📸</span> أكمّل بروفايلك — حط صورتك وبايو واضح عشان تكسب ثقة
+      العملاء.</div>
+    <div class="guide-tip guide-warn"><span class="guide-tip-icon">⚠️</span> ماتبعتش عروض على طلبات مش في تخصصك — ده
+      بيأثر على تقييمك.</div>
+
+    <div class="guide-cta">
+      <button class="guide-cta-btn" onclick="showPage('client-market')">🏪 شوف الطلبات المتاحة</button>
+    </div>
+  </div>
+
+  <!-- ====== SECTIONS SECTION ====== -->
+  <div class="guide-section" id="guide-sections">
+    <div class="guide-intro">
+      🗺️ المنصة فيها أكتر من قسم — كل قسم ليه وظيفة مختلفة. اعرف كل حاجة هنا!
+    </div>
+
+    <div class="guide-cards-grid">
+      <div class="guide-card">
+        <div class="guide-card-icon">🏠</div>
+        <h3>الرئيسية</h3>
+        <p>نظرة عامة على المنصة، إحصائيات، وأهم الخدمات — نقطة البداية.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">👷</div>
+        <h3>الصنايعية</h3>
+        <p>قائمة بكل الصنايعية المعتمدين مع تقييماتهم وتخصصاتهم — تقدر تحجز مباشرة.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">🏪</div>
+        <h3>سوق الطلبات</h3>
+        <p>مكان العملاء ينشروا طلباتهم والصنايعية يبعتوا عروض — تنافسي وسريع.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">📋</div>
+        <h3>طلباتي</h3>
+        <p>تتبع طلباتك الحالية والسابقة — شوف الحالة والعروض والمراسلات.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">👤</div>
+        <h3>حسابي</h3>
+        <p>عدّل بياناتك، صورتك، تخصصك، وحالة التوافر — مهم جداً للصنايعي.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">⭐</div>
+        <h3>التقييمات</h3>
+        <p>كل صنايعي عنده تقييم من عملاء حقيقيين — بيساعدك تختار الأفضل.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">💰</div>
+        <h3>المفاوضة</h3>
+        <p>قدّر تتفاوض على السعر مباشرة في المنصة قبل ما توافق على أي عرض.</p>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-icon">🔔</div>
+        <h3>الإشعارات</h3>
+        <p>هتوصلك إشعارات فورية لما تيجيلك عرض أو يتقبل طلبك أو يحصل أي تحديث.</p>
+      </div>
+    </div>
+
+    <div class="guide-steps-title">❓ أسئلة شائعة</div>
+    <div class="guide-step">
+      <div class="guide-step-icon" style="font-size:20px;">❓</div>
+      <div class="guide-step-body">
+        <h3>المنصة بتخد عمولة؟</h3>
+        <p>أيوه — المنصة بتاخد عمولة بسيطة على كل طلب مكتمل. العمولة دي بتساعد في تطوير الخدمة وضمان جودة الصنايعية.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-icon" style="font-size:20px;">❓</div>
+      <div class="guide-step-body">
+        <h3>إزاي أعرف الصنايعي موثوق؟</h3>
+        <p>كل الصنايعية عندهم تقييمات من عملاء حقيقيين في أسوان — شوف التقييم والتعليقات قبل الحجز.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-icon" style="font-size:20px;">❓</div>
+      <div class="guide-step-body">
+        <h3>لو عندي مشكلة مع صنايعي؟</h3>
+        <p>تواصل معنا من خلال قسم "تواصل معنا" في الموقع وهنساعدك في أقرب وقت.</p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="guide-step-icon" style="font-size:20px;">❓</div>
+      <div class="guide-step-body">
+        <h3>أنا صنايعي — إزاي أنضم؟</h3>
+        <p>اضغط "إنشاء حساب" واختار "صنايعي" — أدخل بياناتك وابدأ تستقبل طلبات فوراً.</p>
+      </div>
+    </div>
+
+    <div class="guide-cta">
+      <button class="guide-cta-btn" onclick="showPage('home')">🏠 ارجع للرئيسية</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div id="page-profile-client" class="page">
+    <div class="profile-page">
+
+      <div class="profile-cover"></div>
+
+      <div class="profile-header-row">
+        <div style="display:flex; align-items:flex-end; gap:16px;">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="client-avatar-display">👤</div>
+            <div class="profile-status-dot online"></div>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-input-client').click()"
+              title="تغيير الصورة">📷</div>
+            <input type="file" id="avatar-input-client" accept="image/*" onchange="handleAvatarUpload(this, 'client')">
+          </div>
+          <div style="padding-bottom:6px;">
+            <div class="profile-name">-</div>
+            <div class="profile-role">👤 عميل</div>
+            <div class="profile-meta">📍 - &nbsp;·&nbsp; -</div>
+          </div>
+        </div>
+        <div class="profile-actions" style="padding-bottom:6px;">
+          <button class="btn-edit" onclick="showEditModal('client')"><i class="fas fa-pen"></i> تعديل البيانات</button>
+          <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        </div>
+      </div>
+
+      <!-- stats strip -->
+      <div class="stat-strip">
+        <div class="stat-box">
+          <div class="stat-box-num" id="client-stat-done">0</div>
+          <div class="stat-box-label">طلب منجز</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num" id="client-stat-pending">0</div>
+          <div class="stat-box-label">طلب جاري</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num">-</div>
+          <div class="stat-box-label">تقييمك من الصنايعية</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num">-</div>
+          <div class="stat-box-label">صنايعي مفضل</div>
+        </div>
+      </div>
+
+      <!-- info cards -->
+      <div class="profile-grid">
+        <div class="profile-card">
+          <div class="profile-card-title">البيانات الشخصية</div>
+          <div class="info-row">
+            <span class="info-icon">📱</span>
+            <div>
+              <div class="info-label">التليفون</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">📧</span>
+            <div>
+              <div class="info-label">الإيميل</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <div>
+              <div class="info-label">العنوان</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🗓️</span>
+            <div>
+              <div class="info-label">تاريخ الانضمام</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-card-title">إعدادات الحساب</div>
+          <div class="info-row">
+            <span class="info-icon">🔔</span>
+            <div>
+              <div class="info-label">الإشعارات</div>
+              <div class="info-val">مفعّلة</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🌍</span>
+            <div>
+              <div class="info-label">اللغة</div>
+              <div class="info-val">العربية</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🔒</span>
+            <div>
+              <div class="info-label">كلمة المرور</div>
+              <div class="info-val">••••••••</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn-edit" style="font-size:12px; padding:7px 14px;"
+              onclick="alert('ميزة تغيير كلمة المرور قريباً')"><i class="fas fa-key"></i> تغيير كلمة المرور</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="showUnifiedOrders()"
+          style="flex:1;min-width:180px;justify-content:center;">📋 طلباتي</button>
+        <button class="btn-secondary" onclick="showPage('request')"
+          style="flex:1;min-width:180px;justify-content:center;">🛠️ اطلب خدمة جديدة</button>
+      </div>
+
+      <!-- تعليقات الصنايعية على العميل -->
+      <div style="margin-top:24px;">
+        <div class="profile-section-title">⭐ تعليقات الصنايعية عليك</div>
+        <div id="client-ratings-list" style="display:flex;flex-direction:column;gap:10px;">
+          <p style="color:rgba(255,255,255,0.3);text-align:center;padding:1rem;font-size:13px;">لا توجد تعليقات بعد</p>
+        </div>
+      </div>
+
+    </div>
+  </div>

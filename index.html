@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صنايعي أسوان - منصة الخدمات الأولى في أسوان</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&family=Tajawal:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">
+      <div class="logo-icon">🔧</div>
+      <div>
+        <div class="logo-text">صنايعي أسوان</div>
+        <div class="logo-sub">منصة الخدمات الأولى في أسوان</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn outline" onclick="showPage('home')">الرئيسية</button>
+      <button class="nav-btn outline" onclick="showPage('craftsmen')">الصنايعية</button>
+      <button class="nav-btn outline" onclick="showAuthPage('login')" id="nav-login-btn">دخول</button>
+      <div style="position:relative; display:none;" id="nav-profile-wrap">
+        <button class="nav-btn outline" onclick="toggleProfileMenu()" id="nav-profile-btn"
+          style="display:flex;align-items:center;gap:8px;padding:5px 12px 5px 8px;">
+          <div id="nav-avatar"
+            style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(200,135,58,0.4),rgba(200,135,58,0.1));border:2px solid rgba(200,135,58,0.5);display:flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;flex-shrink:0;">
+            👤</div>
+          <span id="nav-display-name"
+            style="font-size:13px;font-weight:700;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">حسابي</span>
+          <span style="font-size:10px;opacity:0.6;">▾</span>
+        </button>
+        <div id="nav-dropdown"
+          style="display:none; position:absolute; top:44px; left:0; background:#1C1A17; border:1px solid rgba(200,135,58,0.3); border-radius:12px; min-width:170px; box-shadow:0 8px 30px rgba(0,0,0,0.5); z-index:200; overflow:hidden;">
+          <button id="nav-profile-link" onclick="goToMyProfile(); closeProfileMenu()"
+            style="display:block; width:100%; padding:12px 16px; background:none; border:none; color:#fff; font-family:Cairo,sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-align:right; transition:background 0.15s;"
+            onmouseover="this.style.background='rgba(200,135,58,0.12)'" onmouseout="this.style.background='none'">👤
+            بروفيلي</button>
+          <button id="nav-requests-link" onclick="showPage('worker-requests'); closeProfileMenu()"
+            style="display:none; width:100%; padding:12px 16px; background:none; border:none; color:#fff; font-family:Cairo,sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-align:right; transition:background 0.15s; border-top:1px solid rgba(255,255,255,0.06);"
+            onmouseover="this.style.background='rgba(200,135,58,0.12)'" onmouseout="this.style.background='none'">📋
+            طلباتي <span id="nav-reqs-badge"
+              style="display:none;background:#E74C3C;color:#fff;border-radius:50%;padding:1px 6px;font-size:11px;margin-right:4px;"></span></button>
+          <button id="nav-client-orders-link" onclick="showPage('client-orders'); closeProfileMenu()"
+            style="display:none; width:100%; padding:12px 16px; background:none; border:none; color:#fff; font-family:Cairo,sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-align:right; transition:background 0.15s; border-top:1px solid rgba(255,255,255,0.06);"
+            onmouseover="this.style.background='rgba(200,135,58,0.12)'" onmouseout="this.style.background='none'">📋
+            طلباتي</button>
+          <button id="nav-market-link" onclick="showPage('client-market'); closeProfileMenu()"
+            style="display:none; width:100%; padding:12px 16px; background:none; border:none; color:#fff; font-family:Cairo,sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-align:right; transition:background 0.15s; border-top:1px solid rgba(255,255,255,0.06);"
+            onmouseover="this.style.background='rgba(200,135,58,0.12)'" onmouseout="this.style.background='none'">🏪
+            سوق الطلبات <span id="nav-market-badge"
+              style="display:none;background:#E74C3C;color:#fff;border-radius:50%;padding:1px 6px;font-size:11px;margin-right:4px;"></span></button>
+          <span id="nav-chat-badge" style="display:none;"></span>
+          <button id="nav-wallet-link" onclick="showPage('wallet'); closeProfileMenu()"
+            style="display:none; width:100%; padding:12px 16px; background:none; border:none; color:#C8873A; font-family:Cairo,sans-serif; font-size:14px; font-weight:700; cursor:pointer; text-align:right; transition:background 0.15s; border-top:1px solid rgba(255,255,255,0.06);"
+            onmouseover="this.style.background='rgba(200,135,58,0.12)'" onmouseout="this.style.background='none'">💳
+            محفظتي</button>
+          <button onclick="doLogout(); closeProfileMenu()"
+            style="display:block; width:100%; padding:12px 16px; background:none; border:none; color:#E74C3C; font-family:Cairo,sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-align:right; transition:background 0.15s; border-top:1px solid rgba(255,255,255,0.06);"
+            onmouseover="this.style.background='rgba(192,57,43,0.12)'" onmouseout="this.style.background='none'">🚪
+            خروج</button>
+        </div>
+      </div>
+      <button class="nav-btn filled" onclick="goToRequest()">اطلب خدمة 🛠️</button>
+    </div>
+  </nav>
+
+  <!-- MOBILE TOP BAR -->
+  <div id="mobile-topbar"
+    style="display:none;position:sticky;top:0;z-index:100;background:rgba(22,20,17,0.97);border-bottom:1px solid rgba(200,135,58,0.2);backdrop-filter:blur(12px);padding:0 16px;height:52px;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div
+        style="width:30px;height:30px;background:linear-gradient(135deg,#C8873A,#8B5E25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;">
+        🔧</div>
+      <span id="mobile-topbar-title" style="font-size:16px;font-weight:800;color:#C8873A;">صنايعي أسوان</span>
+    </div>
+    <div id="mobile-topbar-right" style="display:flex;align-items:center;gap:8px;">
+      <button onclick="showAuthPage('login')" id="mobile-login-btn"
+        style="padding:7px 14px;border-radius:8px;border:1.5px solid rgba(200,135,58,0.5);background:transparent;color:#C8873A;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">دخول</button>
+    </div>
+  </div>
+
+  <!-- DESKTOP SIDEBAR -->
+  <div class="desktop-sidebar" id="desktop-sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">🔧</div>
+      <div>
+        <div class="sidebar-logo-text">صنايعي أسوان</div>
+        <div class="sidebar-logo-sub">منصة الخدمات</div>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <button class="sidebar-item active" id="si-home" onclick="sidebarNav('home')">
+        <span class="si-icon">🏠</span> الرئيسية
+      </button>
+      <button class="sidebar-item" id="si-craftsmen" onclick="sidebarNav('craftsmen')">
+        <span class="si-icon">👷</span> الصنايعية
+      </button>
+      <div class="sidebar-divider"></div>
+      <button class="sidebar-item" id="si-orders" onclick="sidebarNavOrders()">
+        <span class="si-icon">📋</span> طلباتي
+        <span class="si-badge" id="si-orders-badge"></span>
+      </button>
+      <button class="sidebar-item" id="si-market" onclick="sidebarNav('client-market')" style="display:none;">
+        <span class="si-icon">🏪</span> سوق الطلبات
+        <span class="si-badge" id="si-market-badge"></span>
+      </button>
+      <button class="sidebar-item" id="si-wallet" onclick="sidebarNav('wallet')" style="display:none;">
+        <span class="si-icon">💳</span> محفظتي
+      </button>
+      <div class="sidebar-divider"></div>
+      <button class="sidebar-item" id="si-profile" onclick="sidebarNavProfile()">
+        <span class="si-icon">👤</span> حسابي
+      </button>
+      <button class="sidebar-item" id="si-guide" onclick="sidebarNav('guide')">
+        <span class="si-icon">📖</span> دليل الاستخدام
+      </button>
+    </div>
+
+    <button class="sidebar-request-btn" onclick="if(typeof showPage==='function'){showPage('client-market');}">
+      🛠️ اطلب خدمة دلوقتي
+    </button>
+
+    <!-- logged out -->
+    <button class="sidebar-login-btn" id="sb-login-btn" onclick="showAuthPage('login')">
+      <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+    </button>
+
+    <!-- logged in user info -->
+    <div class="sidebar-user" id="sb-user-info" style="display:none;" onclick="sidebarNavProfile()">
+      <div class="sidebar-user-avatar" id="sb-avatar">👤</div>
+      <div>
+        <div class="sidebar-user-name" id="sb-name">-</div>
+        <div class="sidebar-user-role" id="sb-role">-</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <div class="nav-items">
+      <button class="mobile-nav-item active" id="mbnav-home" onclick="mobileNav('home')">
+        <span class="nav-icon">🏠</span>
+        <span>الرئيسية</span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-craftsmen" onclick="mobileNav('craftsmen')">
+        <span class="nav-icon">👷</span>
+        <span>الصنايعية</span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-request" onclick="mobileNavRequest()">
+        <span class="nav-icon"
+          style="font-size:28px;background:linear-gradient(135deg,#C8873A,#8B5E25);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;margin-top:-14px;box-shadow:0 4px 18px rgba(200,135,58,0.5);">🛠️</span>
+        <span>اطلب</span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-orders" onclick="mobileNavOrders()">
+        <span class="nav-icon">📋</span>
+        <span>طلباتي</span>
+        <span class="m-badge" id="mbnav-orders-badge"></span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-market" onclick="mobileNavMarket()" style="display:none;">
+        <span class="nav-icon">🏪</span>
+        <span>السوق</span>
+        <span class="m-badge" id="mbnav-market-badge"></span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-wallet" onclick="mobileNav('wallet')" style="display:none;">
+        <span class="nav-icon">💳</span>
+        <span>محفظتي</span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-profile" onclick="mobileNavProfile()">
+        <span class="nav-icon">👤</span>
+        <span>حسابي</span>
+      </button>
+      <button class="mobile-nav-item" id="mbnav-guide" onclick="mobileNav('guide')">
+        <span class="nav-icon">📖</span>
+        <span>دليل</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- HOME PAGE -->
+  <!-- PAGE_INCLUDE:page-home -->
+  <!-- CRAFTSMEN PAGE -->
+  <!-- PAGE_INCLUDE:page-craftsmen -->
+  <!-- REQUEST PAGE -->
+  <!-- PAGE_INCLUDE:page-request -->
+  <!-- AUTH PAGE -->
+  <!-- PAGE_INCLUDE:page-auth -->
+  <!-- CLIENT PROFILE PAGE -->
+  <!-- PAGE_INCLUDE:page-profile-client -->
+  <!-- CRAFTSMAN PROFILE PAGE -->
+  <!-- PAGE_INCLUDE:page-profile-worker -->
+  <!-- EDIT PROFILE MODAL -->
+  <div id="edit-modal"
+    style="display:none; position:fixed; inset:0; z-index:999; align-items:center; justify-content:center; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); padding:1rem;"
+    onclick="if(event.target===this)closeEditModal()">
+    <div
+      style="background:#1C1A17; border:1px solid rgba(200,135,58,0.3); border-radius:24px; padding:2rem; max-width:440px; width:100%; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6); max-height:80vh; overflow-y:auto;">
+      <button onclick="closeEditModal()"
+        style="position:absolute; top:14px; left:14px; background:rgba(255,255,255,0.07); border:none; color:#fff; width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:16px;">✕</button>
+      <div style="font-size:1.2rem; font-weight:800; margin-bottom:1.5rem;">✏️ تعديل البيانات</div>
+      <div id="edit-modal-body"></div>
+      <button class="auth-btn" onclick="saveProfile()" style="margin-top:12px;">
+        <i class="fas fa-save"></i> حفظ التعديلات
+      </button>
+    </div>
+  </div>
+
+  <!-- UNIFIED ORDERS PAGE -->
+  <!-- PAGE_INCLUDE:page-unified-orders -->  <!-- END UNIFIED ORDERS PAGE -->
+  <!-- CHAT PAGE -->
+  <!-- CLIENT ORDERS PAGE -->
+  <!-- PAGE_INCLUDE:page-client-orders -->
+  <!-- WORKER REQUESTS PAGE -->
+  <!-- PAGE_INCLUDE:page-worker-requests -->
+  <!-- REQUEST DETAIL PAGE -->
+  <!-- PAGE_INCLUDE:page-request-detail -->
+  <!-- PAGE_INCLUDE:page-chat -->
+  <span id="si-chat-badge-sb" style="display:none;"></span>
+  <span id="mbnav-chat-badge" style="display:none;"></span>
+
+  <!-- CHAT MODAL -->
+  <div id="chat-modal"
+    style="display:none;position:fixed;inset:0;z-index:1200;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);">
+    <div
+      style="background:#1C1A17;border:1px solid rgba(200,135,58,0.3);border-radius:24px 24px 0 0;width:100%;max-width:520px;height:75vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,0.6);">
+      <!-- Header -->
+      <div
+        style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.07);">
+        <div class="chat-avatar" id="chat-modal-partner-avatar" style="width:40px;height:40px;font-size:18px;">👤</div>
+        <div style="flex:1;">
+          <div style="font-size:15px;font-weight:800;color:#fff;" id="chat-modal-partner-name">-</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);" id="chat-modal-partner-role">-</div>
+        </div>
+        <button onclick="closeChatModal()"
+          style="background:rgba(255,255,255,0.07);border:none;color:#fff;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:18px;flex-shrink:0;">✕</button>
+      </div>
+      <!-- Messages -->
+      <div id="chat-modal-messages" class="chat-messages"
+        style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;"></div>
+      <!-- Input -->
+      <div class="chat-input-area" style="border-top:1px solid rgba(255,255,255,0.08);padding:12px 14px;">
+        <button class="chat-send-btn" onclick="sendChatModalMessage()">➤</button>
+        <input class="chat-input" id="chat-modal-input" placeholder="اكتب رسالة..."
+          onkeydown="if(event.key==='Enter')sendChatModalMessage()">
+      </div>
+    </div>
+  </div>
+
+  <!-- OWNER ADMIN DASHBOARD PAGE -->
+  <!-- PAGE_INCLUDE:page-admin -->  <!-- END OWNER ADMIN DASHBOARD PAGE -->
+
+  <footer>
+    <div style="font-size: 15px; font-weight: 700; color: rgba(200,135,58,0.7); margin-bottom: 6px;">🔧 صنايعي أسوان
+    </div>
+    منصة أسوان الأولى لربط الحرفيين بالعملاء · جميع الحقوق محفوظة 2025
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <!-- JS_INCLUDE:firebase-early -->
+  <!-- JS_INCLUDE:app-main -->
+
+
+  <!-- CRAFTSMAN MODAL -->
+  <div id="craftsman-modal"
+    style="display:none;position:fixed;inset:0;z-index:999;align-items:center;justify-content:center;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);padding:1rem;"
+    onclick="if(event.target===this)closeModal()">
+    <div
+      style="background:#1C1A17;border:1px solid rgba(200,135,58,0.25);border-radius:28px;max-width:460px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.7);max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;">
+
+      <!-- Header / Cover -->
+      <div id="modal-cover"
+        style="background:linear-gradient(135deg,#2C2418,#1A1208);border-radius:28px 28px 0 0;padding:1.2rem 1.5rem 0;position:relative;">
+        <!-- pattern bg -->
+        <div style="position:absolute;inset:0;border-radius:28px 28px 0 0;opacity:0.06;background:url(\"
+          data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' %3E%3Ccircle cx='20'
+          cy='20' r='1.5' fill='%23C8873A' /%3E%3C/svg%3E\");pointer-events:none;"></div>
+        <!-- close btn -->
+        <button onclick="closeModal()"
+          style="position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:2;">✕</button>
+        <!-- availability badge top right -->
+        <div id="modal-status-top" style="position:absolute;top:14px;right:14px;z-index:2;"></div>
+
+        <!-- space for close/status buttons -->
+        <div style="height:44px;"></div>
+
+        <!-- Avatar — outside overflow so it shows fully -->
+        <div
+          style="display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;padding-bottom:1.4rem;">
+          <div id="modal-avatar-wrap"
+            style="width:96px;height:96px;border-radius:50%;border:3px solid rgba(200,135,58,0.6);box-shadow:0 0 0 5px rgba(200,135,58,0.13),0 8px 24px rgba(0,0,0,0.4);overflow:hidden;background:linear-gradient(135deg,rgba(200,135,58,0.3),rgba(200,135,58,0.08));display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0;">
+          </div>
+          <div style="text-align:center;">
+            <div id="modal-name" style="font-size:1.35rem;font-weight:900;color:#fff;margin-bottom:3px;"></div>
+            <div id="modal-trade" style="color:#C8873A;font-weight:700;font-size:14px;"></div>
+            <div id="modal-area" style="color:rgba(255,255,255,0.4);font-size:12px;margin-top:3px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="padding:14px 10px;text-align:center;border-left:1px solid rgba(255,255,255,0.06);">
+          <div id="modal-rating-num" style="font-size:20px;font-weight:900;color:#C8873A;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;">التقييم</div>
+        </div>
+        <div style="padding:14px 10px;text-align:center;">
+          <div id="modal-reviews-num" style="font-size:20px;font-weight:900;color:#fff;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;">تقييم من العملاء</div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div style="padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Bio -->
+        <div id="modal-bio-section" style="display:none;">
+          <div
+            style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:7px;font-weight:700;letter-spacing:0.5px;">
+            👤 نبذة عن الصنايعي</div>
+          <div id="modal-bio"
+            style="font-size:14px;color:rgba(255,255,255,0.75);line-height:1.8;background:rgba(255,255,255,0.04);border-radius:12px;padding:12px 14px;border-right:3px solid rgba(200,135,58,0.5);">
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div id="modal-tags-section">
+          <div
+            style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:7px;font-weight:700;letter-spacing:0.5px;">
+            🔧 التخصصات</div>
+          <div id="modal-tags" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+        </div>
+
+        <!-- Stars visual -->
+        <div
+          style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div id="modal-stars-row" style="color:#C8873A;font-size:20px;letter-spacing:3px;"></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;" id="modal-reviews-label"></div>
+          </div>
+          <div id="modal-status" style=""></div>
+        </div>
+
+        <!-- Client Ratings -->
+        <div>
+          <div
+            style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:10px;font-weight:700;letter-spacing:0.5px;">
+            💬 آراء العملاء</div>
+          <div id="modal-ratings-list"
+            style="display:flex;flex-direction:column;gap:10px;max-height:240px;overflow-y:auto;scroll-behavior:smooth;">
+            <div style="text-align:center;padding:1.5rem;color:rgba(255,255,255,0.25);font-size:13px;">⏳ جاري التحميل...
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div style="display:flex;gap:10px;padding-top:4px;">
+          <button id="modal-book-btn" class="auth-btn" style="flex:1;padding:13px;font-size:15px;">
+            <i class="fas fa-calendar-check"></i> احجز دلوقتي
+          </button>
+          <button onclick="closeModal()"
+            style="padding:13px 18px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);border-radius:12px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:14px;font-weight:600;">إغلاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RATING MODAL -->
+  <div id="rating-modal" style="display:none;" class="rating-modal-overlay"
+    onclick="if(event.target===this)closeRatingModal()">
+    <div class="rating-modal-box">
+      <div style="font-size:2.5rem;margin-bottom:8px;" id="rating-modal-emoji">⭐</div>
+      <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:4px;" id="rating-modal-title">قيّم الخدمة</h3>
+      <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:4px;" id="rating-modal-sub">كيف كانت تجربتك؟
+      </p>
+      <div class="rating-stars-row" id="rating-stars">
+        <span class="rating-star" onclick="setRatingStar(1)">★</span>
+        <span class="rating-star" onclick="setRatingStar(2)">★</span>
+        <span class="rating-star" onclick="setRatingStar(3)">★</span>
+        <span class="rating-star" onclick="setRatingStar(4)">★</span>
+        <span class="rating-star" onclick="setRatingStar(5)">★</span>
+      </div>
+      <p id="rating-star-label"
+        style="color:#C8873A;font-size:13px;font-weight:700;min-height:20px;margin-bottom:12px;"></p>
+      <textarea class="rating-comment" id="rating-comment" placeholder="اكتب تعليقك (اختياري)..."></textarea>
+      <button class="auth-btn" onclick="submitRating()" style="width:100%;padding:12px;font-size:15px;"
+        id="rating-submit-btn">
+        <i class="fas fa-star"></i> إرسال التقييم
+      </button>
+      <button onclick="closeRatingModal()"
+        style="width:100%;padding:10px;margin-top:8px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);border-radius:10px;cursor:pointer;font-family:Cairo,sans-serif;font-size:13px;font-weight:600;">تخطي</button>
+    </div>
+  </div>
+
+  <!-- CLIENT ORDER DETAIL MODAL -->
+  <div id="client-order-detail-modal"
+    style="display:none;position:fixed;inset:0;z-index:1050;align-items:center;justify-content:center;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);padding:1rem;"
+    onclick="if(event.target===this)closeClientOrderDetail()">
+    <div
+      style="background:#1C1A17;border:1px solid rgba(200,135,58,0.3);border-radius:24px;padding:0;max-width:480px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.7);max-height:88vh;overflow-y:auto;display:flex;flex-direction:column;">
+      <!-- Header -->
+      <div
+        style="padding:20px 20px 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#1C1A17;z-index:2;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:14px;">
+        <div id="cod-header" style="display:flex;align-items:center;gap:10px;">
+          <span id="cod-icon" style="font-size:24px;">🔧</span>
+          <div>
+            <div id="cod-title" style="font-size:16px;font-weight:800;color:#fff;"></div>
+            <div id="cod-status-badge" style="margin-top:3px;"></div>
+          </div>
+        </div>
+        <button onclick="closeClientOrderDetail()"
+          style="background:rgba(255,255,255,0.07);border:none;color:#fff;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:17px;flex-shrink:0;">✕</button>
+      </div>
+      <!-- Body -->
+      <div id="cod-body" style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </div>
+
+  <!-- CONFIRM DONE MODAL (for client) -->
+  <div id="confirm-done-modal" style="display:none;" class="rating-modal-overlay"
+    onclick="if(event.target===this)closeConfirmDoneModal()">
+    <div class="rating-modal-box">
+      <div style="font-size:3rem;margin-bottom:12px;">✅</div>
+      <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px;">الصنايعي قال إنه خلّص!</h3>
+      <p style="color:rgba(255,255,255,0.55);font-size:14px;line-height:1.7;margin-bottom:20px;"
+        id="confirm-done-order-info">هل تأكد إن الشغل اتنجز؟</p>
+      <div style="display:flex;gap:10px;">
+        <button onclick="clientConfirmDone(true)"
+          style="flex:1;padding:13px;background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.4);border-radius:12px;color:#2ECC71;font-family:Cairo,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✓
+          أيوه، اتنجز</button>
+        <button onclick="clientConfirmDone(false)"
+          style="flex:1;padding:13px;background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.35);border-radius:12px;color:#E74C3C;font-family:Cairo,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✗
+          لا، لسه</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE OFFER MODAL (worker) -->
+  <div id="price-offer-modal"
+    style="display:none;position:fixed;inset:0;z-index:1100;align-items:center;justify-content:center;background:rgba(0,0,0,0.82);backdrop-filter:blur(6px);padding:1rem;"
+    onclick="if(event.target===this)closePriceOfferModal()">
+    <div
+      style="background:#1C1A17;border:1px solid rgba(155,89,182,0.4);border-radius:22px;padding:0;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.7);">
+      <div
+        style="padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:22px;">💰</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:#fff;">اكتب عرض السعر</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);">العميل هيشوف السعر ويوافق أو يرفض</div>
+          </div>
+        </div>
+        <button onclick="closePriceOfferModal()"
+          style="background:rgba(255,255,255,0.07);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+      </div>
+      <div style="padding:20px;">
+        <input type="hidden" id="price-offer-order-num">
+        <!-- بانر العروض -->
+        <div id="price-offer-promo-banner" style="display:none;background:linear-gradient(135deg,rgba(46,204,113,0.15),rgba(46,204,113,0.06));border:1.5px solid rgba(46,204,113,0.4);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#2ECC71;text-align:center;"></div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:13px;color:rgba(255,255,255,0.6);display:block;margin-bottom:6px;">السعر
+            (بالجنيه)</label>
+          <div style="position:relative;">
+            <input type="text" inputmode="numeric" id="price-offer-amount" placeholder="مثال: 350"
+              style="width:100%;padding:14px 50px 14px 16px;border-radius:12px;border:1.5px solid rgba(155,89,182,0.4);background:rgba(155,89,182,0.06);color:#fff;font-family:Cairo,sans-serif;font-size:20px;font-weight:800;outline:none;text-align:center;"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            <span
+              style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(155,89,182,0.8);font-size:14px;font-weight:700;">ج</span>
+          </div>
+        </div>
+        <div style="margin-bottom:18px;">
+          <label style="font-size:13px;color:rgba(255,255,255,0.6);display:block;margin-bottom:6px;">ملاحظة للعميل
+            (اختياري)</label>
+          <textarea id="price-offer-note" placeholder="مثال: السعر شامل قطع الغيار، أو السعر للزيارة فقط..."
+            style="width:100%;padding:12px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:Cairo,sans-serif;font-size:14px;outline:none;resize:none;height:80px;"></textarea>
+        </div>
+        <button onclick="submitPriceOffer()"
+          style="width:100%;padding:14px;background:linear-gradient(135deg,#8E44AD,#6C3483);border:none;border-radius:12px;color:#fff;font-family:Cairo,sans-serif;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span>💰</span> إرسال عرض السعر للعميل
+        </button>
+        <button onclick="closePriceOfferModal()"
+          style="width:100%;padding:11px;margin-top:8px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);border-radius:10px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+  <!-- JS_INCLUDE:worker-counter -->
+
+  <!-- COUNTER OFFER MODAL (client) -->
+  <div id="counter-offer-modal"
+    style="display:none;position:fixed;inset:0;z-index:1200;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);padding:1rem;"
+    onclick="if(event.target===this)closeCounterOfferModal()">
+    <div
+      style="background:#1C1A17;border:1px solid rgba(230,126,34,0.45);border-radius:22px;padding:0;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.7);">
+      <div
+        style="padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:22px;">🤝</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:#fff;">فاصل على السعر</div>
+            <div id="counter-modal-sub" style="font-size:12px;color:rgba(255,255,255,0.4);">سعر الصنايعي: — جنيه</div>
+          </div>
+        </div>
+        <button onclick="closeCounterOfferModal()"
+          style="background:rgba(255,255,255,0.07);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <input type="hidden" id="counter-offer-order-num">
+        <div>
+          <label style="font-size:13px;color:rgba(255,255,255,0.6);display:block;margin-bottom:6px;">عرضك
+            (بالجنيه)</label>
+          <div style="position:relative;">
+            <input type="text" inputmode="numeric" id="counter-offer-amount" placeholder="اكتب سعرك..."
+              style="width:100%;padding:14px 50px 14px 16px;border-radius:12px;border:1.5px solid rgba(230,126,34,0.45);background:rgba(230,126,34,0.06);color:#fff;font-family:Cairo,sans-serif;font-size:22px;font-weight:800;outline:none;text-align:center;"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            <span
+              style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(230,126,34,0.8);font-size:14px;font-weight:700;">ج</span>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:13px;color:rgba(255,255,255,0.6);display:block;margin-bottom:6px;">ملاحظة
+            (اختياري)</label>
+          <textarea id="counter-offer-note" placeholder="مثال: السعر ده بيكون معقول أكتر..."
+            style="width:100%;padding:11px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:Cairo,sans-serif;font-size:13px;outline:none;resize:none;height:70px;"></textarea>
+        </div>
+        <button onclick="submitCounterOffer()"
+          style="width:100%;padding:14px;background:linear-gradient(135deg,#E67E22,#CA6F1E);border:none;border-radius:12px;color:#fff;font-family:Cairo,sans-serif;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span>🤝</span> إرسال عرضي للصنايعي
+        </button>
+        <button onclick="closeCounterOfferModal()"
+          style="width:100%;padding:11px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);border-radius:10px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+  <!-- JS_INCLUDE:wallet -->
+
+  <!-- ===== WORKER COUNTER MODAL ===== -->
+  <div id="worker-counter-modal"
+    style="display:none;position:fixed;inset:0;z-index:1300;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);backdrop-filter:blur(8px);padding:1rem;"
+    onclick="if(event.target===this)closeWorkerCounterModal()">
+    <div
+      style="background:#1C1A17;border:2px solid rgba(52,152,219,0.45);border-radius:22px;max-width:400px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.7);">
+      <div
+        style="padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:24px;">↩️</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:#fff;">فاصل بسعرك</div>
+            <div id="wc-modal-sub" style="font-size:12px;color:rgba(255,255,255,0.4);">عرض العميل: — جنيه</div>
+          </div>
+        </div>
+        <button onclick="closeWorkerCounterModal()"
+          style="background:rgba(255,255,255,0.07);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <input type="hidden" id="wc-order-num">
+        <div>
+          <label style="font-size:13px;color:rgba(255,255,255,0.55);display:block;margin-bottom:7px;">سعرك المضاد
+            (جنيه)</label>
+          <div style="position:relative;">
+            <input type="text" inputmode="numeric" id="wc-amount" placeholder="اكتب سعرك..."
+              style="width:100%;padding:14px 50px 14px 16px;border-radius:12px;border:2px solid rgba(52,152,219,0.45);background:rgba(52,152,219,0.06);color:#fff;font-family:Cairo,sans-serif;font-size:24px;font-weight:900;outline:none;text-align:center;"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            <span
+              style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#3498DB;font-size:14px;font-weight:700;">ج</span>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:13px;color:rgba(255,255,255,0.55);display:block;margin-bottom:7px;">ملاحظة
+            (اختياري)</label>
+          <textarea id="wc-note" placeholder="مثال: ده أقل سعر ممكن للشغل ده..."
+            style="width:100%;padding:11px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#fff;font-family:Cairo,sans-serif;font-size:13px;outline:none;resize:none;height:70px;"></textarea>
+        </div>
+        <button onclick="submitWorkerCounter()" id="wc-submit-btn"
+          style="width:100%;padding:14px;background:linear-gradient(135deg,#2980B9,#1A5276);border:none;border-radius:12px;color:#fff;font-family:Cairo,sans-serif;font-size:16px;font-weight:800;cursor:pointer;">
+          ↩️ إرسال عرضي للعميل
+        </button>
+        <button onclick="closeWorkerCounterModal()"
+          style="width:100%;padding:11px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.45);border-radius:10px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+  <!-- JS_INCLUDE:worker-counter -->
+
+  <!-- ==================== CLIENT MARKET PAGE ==================== -->
+  <!-- PAGE_INCLUDE:page-client-market -->  <!-- END CLIENT MARKET PAGE -->
+
+  <!-- OFFER SEND MODAL (للصنايعي) -->
+  <div id="cm-offer-modal" onclick="if(event.target===this)cmCloseOfferModal()">
+    <div class="cm-modal-box">
+      <div class="cm-modal-header">
+        <span class="cm-modal-title">💰 إرسال عرض سعر للعميل</span>
+        <button class="cm-modal-close" onclick="cmCloseOfferModal()">✕</button>
+      </div>
+      <div class="cm-modal-body">
+        <div class="cm-modal-req-summary" id="cm-offer-summary"></div>
+        <!-- بانر العروض النشطة -->
+        <div id="cm-offer-promo-banner" style="display:none;background:linear-gradient(135deg,rgba(46,204,113,0.15),rgba(46,204,113,0.06));border:1.5px solid rgba(46,204,113,0.4);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#2ECC71;text-align:center;"></div>
+        <input type="hidden" id="cm-offer-req-id">
+        <div class="form-group">
+          <label>عرض السعر (بالجنيه) <span style="color:var(--gold);">*</span></label>
+          <input type="text" inputmode="numeric" id="cm-offer-price" placeholder="اكتب سعرك..."
+            style="font-size:22px;font-weight:800;text-align:center;"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        </div>
+        <div class="form-group">
+          <label>رسالة للعميل (اختياري)</label>
+          <textarea id="cm-offer-note" placeholder="مثال: عندي خبرة 5 سنين، أقدر أيجي النهارده..."
+            style="min-height:75px;"></textarea>
+        </div>
+        <button class="submit-btn" onclick="cmSubmitOffer()" id="cm-submit-offer-btn"><span>💰</span> إرسال
+          العرض</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CM COUNTER OFFER MODAL (للعميل يفاصل في السوق) -->
+  <div id="cm-counter-modal" onclick="if(event.target===this)cmCloseCounterModal()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10000;align-items:center;justify-content:center;padding:1rem;">
+    <div class="cm-modal-box" style="max-width:400px;">
+      <div class="cm-modal-header">
+        <span class="cm-modal-title">🤝 فاصل في السعر</span>
+        <button class="cm-modal-close" onclick="cmCloseCounterModal()">✕</button>
+      </div>
+      <div class="cm-modal-body">
+        <div id="cm-counter-summary"
+          style="background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.25);border-radius:11px;padding:11px 14px;margin-bottom:14px;font-size:13px;color:rgba(255,255,255,0.7);">
+        </div>
+        <input type="hidden" id="cm-counter-req-id">
+        <input type="hidden" id="cm-counter-offer-id">
+        <input type="hidden" id="cm-counter-worker-id">
+        <div class="form-group">
+          <label>عرضك (بالجنيه) <span style="color:var(--gold);">*</span></label>
+          <input type="text" inputmode="numeric" id="cm-counter-price" placeholder="اكتب سعرك المقترح..."
+            style="font-size:22px;font-weight:800;text-align:center;"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        </div>
+        <div class="form-group">
+          <label>ملاحظة للصنايعي (اختياري)</label>
+          <textarea id="cm-counter-note" placeholder="مثال: السعر ده أنسب ليا لأن..."
+            style="min-height:70px;"></textarea>
+        </div>
+        <button class="submit-btn" onclick="cmSubmitCounter()" id="cm-submit-counter-btn"><span>🤝</span> إرسال عرضي
+          للصنايعي</button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: الصنايعي يفاصل العميل في عروضي -->
+  <div id="cm-worker-counter-modal" onclick="if(event.target===this)cmCloseWorkerCounterModal()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10000;align-items:center;justify-content:center;padding:1rem;">
+    <div class="cm-modal-box" style="max-width:400px;">
+      <div class="cm-modal-header">
+        <span class="cm-modal-title">↩️ فاصل في السعر</span>
+        <button class="cm-modal-close" onclick="cmCloseWorkerCounterModal()">✕</button>
+      </div>
+      <div class="cm-modal-body">
+        <div id="cm-worker-counter-summary"
+          style="background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.25);border-radius:11px;padding:11px 14px;margin-bottom:14px;font-size:13px;color:rgba(255,255,255,0.7);">
+        </div>
+        <input type="hidden" id="cm-worker-counter-req-id">
+        <input type="hidden" id="cm-worker-counter-offer-id">
+        <input type="hidden" id="cm-worker-counter-client-id">
+        <div class="form-group">
+          <label>سعرك المقترح (بالجنيه) <span style="color:var(--gold);">*</span></label>
+          <input type="text" inputmode="numeric" id="cm-worker-counter-price" placeholder="اكتب سعرك..."
+            style="font-size:22px;font-weight:800;text-align:center;"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        </div>
+        <div class="form-group">
+          <label>ملاحظة للعميل (اختياري)</label>
+          <textarea id="cm-worker-counter-note" placeholder="مثال: السعر ده بسبب..."
+            style="min-height:70px;"></textarea>
+        </div>
+        <button class="submit-btn" onclick="cmSubmitWorkerCounter()" id="cm-submit-worker-counter-btn"><span>↩️</span>
+          إرسال عرضي للعميل</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cm-detail-modal" onclick="if(event.target===this)cmCloseDetailModal()">
+    <div class="cm-modal-box" style="max-width:520px;">
+      <div class="cm-modal-header">
+        <span class="cm-modal-title" id="cm-detail-title">تفاصيل الطلب</span>
+        <button class="cm-modal-close" onclick="cmCloseDetailModal()">✕</button>
+      </div>
+      <div class="cm-modal-body" id="cm-detail-body">جاري التحميل...</div>
+    </div>
+  </div>
+
+  <!-- JS_INCLUDE:worker-counter -->
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div id="img-lightbox" onclick="closeLightbox()"
+    style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;cursor:zoom-out;">
+    <button onclick="closeLightbox()"
+      style="position:fixed;top:16px;left:16px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100000;">✕</button>
+    <img id="img-lightbox-src" src="" onclick="event.stopPropagation()"
+      style="max-width:94vw;max-height:90vh;border-radius:12px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,0.7);transition:transform 0.2s;" />
+  </div>
+  <!-- JS_INCLUDE:lightbox -->
+</body>
+
+</html>
+<!-- JS_INCLUDE:unified-orders -->
+
+<!-- ==================== GUIDE PAGE ==================== -->
+<!-- PAGE_INCLUDE:page-guide -->
+<script>
+  function switchGuideTab(tab, btn) {
+    document.querySelectorAll('.guide-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('guide-' + tab).classList.add('active');
+  }
+  window.switchGuideTab = switchGuideTab;
+</script>
+<!-- ==================== END GUIDE PAGE ==================== -->
+
+<!-- ==================== WALLET PAGE ==================== -->
+<!-- PAGE_INCLUDE:page-wallet -->!-- end page-wallet -->
+
+<!-- JS_INCLUDE:wallet -->
+<!-- ==================== END WALLET PAGE ==================== -->
+
+</body>

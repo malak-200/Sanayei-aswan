@@ -1,0 +1,652 @@
+<div id="page-wallet" class="page">
+  <style>
+    /* ===== WALLET PAGE STYLES ===== */
+    .wallet-hero {
+      background: linear-gradient(160deg, #1C1A17 0%, #1a1208 60%, #0d0a05 100%);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wallet-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(200,135,58,0.07)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wallet-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200, 135, 58, 0.12);
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .wallet-balance-card {
+      background: linear-gradient(135deg, rgba(200, 135, 58, 0.18) 0%, rgba(139, 94, 37, 0.12) 100%);
+      border: 1.5px solid rgba(200, 135, 58, 0.4);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 400px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wallet-balance-card::before {
+      content: '💰';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 80px;
+      opacity: 0.06;
+      transform: rotate(-15deg);
+    }
+
+    .wallet-balance-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wallet-balance-amount {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .wallet-balance-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .wallet-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wallet-stat-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+    }
+
+    .wallet-stat-box .wsb-num {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .wallet-stat-box .wsb-lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 600;
+    }
+
+    /* Wallet Tabs */
+    .wallet-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .wallet-tab {
+      padding: 12px 20px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.45);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .wallet-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .wallet-tab-content {
+      display: none;
+    }
+
+    .wallet-tab-content.active {
+      display: block;
+    }
+
+    /* Deposit Form */
+    .wallet-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+
+    .wallet-form-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .wallet-form-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-amounts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .quick-amount-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(200, 135, 58, 0.3);
+      background: rgba(200, 135, 58, 0.07);
+      color: var(--gold);
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .quick-amount-btn:hover,
+    .quick-amount-btn.selected {
+      background: rgba(200, 135, 58, 0.2);
+      border-color: var(--gold);
+    }
+
+    /* Commission Tiers */
+    .commission-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .commission-table th {
+      background: rgba(200, 135, 58, 0.1);
+      color: var(--gold);
+      padding: 10px 14px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .commission-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+    }
+
+    .commission-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .commission-table tr:hover td {
+      background: rgba(200, 135, 58, 0.04);
+    }
+
+    .tier-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .tier-badge.bronze {
+      background: rgba(205, 127, 50, 0.15);
+      color: #CD7F32;
+      border: 1px solid rgba(205, 127, 50, 0.3);
+    }
+
+    .tier-badge.silver {
+      background: rgba(192, 192, 192, 0.12);
+      color: #C0C0C0;
+      border: 1px solid rgba(192, 192, 192, 0.25);
+    }
+
+    .tier-badge.gold {
+      background: rgba(200, 135, 58, 0.2);
+      color: var(--gold);
+      border: 1px solid rgba(200, 135, 58, 0.4);
+    }
+
+    .tier-badge.platinum {
+      background: rgba(46, 204, 113, 0.12);
+      color: #2ECC71;
+      border: 1px solid rgba(46, 204, 113, 0.25);
+    }
+
+    /* Transactions */
+    .txn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .txn-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: all 0.18s;
+    }
+
+    .txn-item:hover {
+      border-color: rgba(200, 135, 58, 0.25);
+    }
+
+    .txn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .txn-icon.deposit {
+      background: rgba(46, 204, 113, 0.15);
+    }
+
+    .txn-icon.deduction {
+      background: rgba(192, 57, 43, 0.15);
+    }
+
+    .txn-icon.commission {
+      background: rgba(200, 135, 58, 0.15);
+    }
+
+    .txn-body {
+      flex: 1;
+    }
+
+    .txn-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .txn-date {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .txn-amount {
+      font-size: 15px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .txn-amount.plus {
+      color: #2ECC71;
+    }
+
+    .txn-amount.minus {
+      color: #E74C3C;
+    }
+
+    /* Balance low warning */
+    .wallet-warning {
+      background: rgba(192, 57, 43, 0.1);
+      border: 1.5px solid rgba(192, 57, 43, 0.35);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+
+    .wallet-warning-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .wallet-warning-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .wallet-warning-text strong {
+      color: #E74C3C;
+    }
+
+    /* Deposit success */
+    .deposit-success {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1.5px solid rgba(46, 204, 113, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    /* Commission Preview Box */
+    .commission-preview {
+      background: rgba(200, 135, 58, 0.08);
+      border: 1.5px solid rgba(200, 135, 58, 0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .commission-preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.12);
+      font-size: 13px;
+    }
+
+    .commission-preview-row:last-child {
+      border-bottom: none;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .commission-preview-row .cp-label {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .commission-preview-row .cp-value {
+      font-weight: 700;
+    }
+
+    /* Admin wallet panel */
+    .admin-wallet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .admin-wallet-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .admin-wallet-item .awi-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(200, 135, 58, 0.3), rgba(200, 135, 58, 0.1));
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .admin-wallet-item .awi-info {
+      flex: 1;
+    }
+
+    .admin-wallet-item .awi-name {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .admin-wallet-item .awi-bal {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .admin-wallet-item .awi-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 480px) {
+      .wallet-balance-amount {
+        font-size: 2.4rem;
+      }
+
+      .wallet-stats-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .commission-table th,
+      .commission-table td {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+
+  <!-- HERO -->
+  <div class="wallet-hero">
+    <div class="wallet-hero-badge">💳 نظام المحفظة</div>
+    <h1 style="font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;margin-bottom:0.5rem;position:relative;">
+      محفظتك الإلكترونية
+    </h1>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);position:relative;">
+      اشحن رصيد — وبعد كل طلب مكتمل يُخصم العمولة تلقائي
+    </p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="wallet-section" style="padding-top:1.5rem;">
+
+    <!-- Balance Card -->
+    <div class="wallet-balance-card" id="wallet-balance-card">
+      <div class="wallet-balance-label">الرصيد المتاح</div>
+      <div class="wallet-balance-amount" id="wallet-balance-display">٠</div>
+      <div class="wallet-balance-sub">جنيه مصري</div>
+      <div style="margin-top:1rem;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <span id="wallet-total-earned-badge"
+          style="font-size:11px;padding:4px 12px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.25);border-radius:20px;color:#2ECC71;font-weight:700;">↑
+          إجمالي الإيداع: ٠ ج</span>
+        <span id="wallet-total-deducted-badge"
+          style="font-size:11px;padding:4px 12px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:20px;color:#E74C3C;font-weight:700;">↓
+          إجمالي العمولة: ٠ ج</span>
+      </div>
+    </div>
+
+    <!-- Low Balance Warning -->
+    <div class="wallet-warning" id="wallet-low-warning" style="display:none;">
+      <div class="wallet-warning-icon">⚠️</div>
+      <div class="wallet-warning-text">
+        <strong>رصيدك منخفض!</strong> — اشحن محفظتك عشان تقدر تستقبل طلبات جديدة. لما الرصيد يوصل للصفر مش هتظهر
+        للعملاء.
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="wallet-stats-row">
+      <div class="wallet-stat-box">
+        <div class="wsb-num" id="wallet-stat-orders" style="color:#2ECC71;">٠</div>
+        <div class="wsb-lbl">طلب منجز</div>
+      </div>
+      <div class="wallet-stat-box">
+        <div class="wsb-num" id="wallet-stat-commission" style="color:var(--gold);">٠%</div>
+        <div class="wsb-lbl">نسبة عمولتك</div>
+      </div>
+      <div class="wallet-stat-box">
+        <div class="wsb-num" id="wallet-stat-next" style="color:#3498DB;">٠</div>
+        <div class="wsb-lbl">ج للمستوى الجاي</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="wallet-tabs">
+      <button class="wallet-tab active" onclick="switchWalletTab('deposit', this)">💳 إيداع رصيد</button>
+      <button class="wallet-tab" onclick="switchWalletTab('commission', this)">📊 نسب العمولة</button>
+      <button class="wallet-tab" onclick="switchWalletTab('history', this)">📋 سجل المعاملات</button>
+    </div>
+
+    <!-- TAB: DEPOSIT -->
+    <div class="wallet-tab-content active" id="wtab-deposit">
+
+      <!-- Pending payment notice -->
+      <div id="wallet-pending-notice"
+        style="display:none;background:rgba(230,126,34,0.1);border:1.5px solid rgba(230,126,34,0.35);border-radius:14px;padding:14px 16px;margin-bottom:1.2rem;display:none;">
+        <div style="font-size:14px;font-weight:800;color:#E67E22;margin-bottom:4px;">⏳ في انتظار تأكيد الدفع</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;" id="wallet-pending-text"></div>
+      </div>
+
+      <div class="wallet-form-card">
+        <div class="wallet-form-title">💰 شحن المحفظة عبر كاشير</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;line-height:1.7;">
+          اختار المبلغ وهتتحول لصفحة الدفع الآمنة — بعد الدفع الأدمن هيأكد ويضيفلك الرصيد.
+        </p>
+
+        <!-- Quick amounts -->
+        <div class="quick-amounts">
+          <button class="quick-amount-btn" onclick="selectQuickAmount(50, this)">50 ج</button>
+          <button class="quick-amount-btn" onclick="selectQuickAmount(100, this)">100 ج</button>
+          <button class="quick-amount-btn" onclick="selectQuickAmount(200, this)">200 ج</button>
+          <button class="quick-amount-btn" onclick="selectQuickAmount(500, this)">500 ج</button>
+          <button class="quick-amount-btn" onclick="selectQuickAmount(1000, this)">1,000 ج</button>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>أو أدخل مبلغ تاني</label>
+          <input type="number" id="wallet-deposit-input" placeholder="مثال: 350" min="10" max="10000"
+            style="font-size:18px;font-weight:700;" oninput="onDepositInputChange(this.value)">
+        </div>
+
+        <!-- Selected amount preview -->
+        <div id="kashier-amount-preview"
+          style="display:none;background:rgba(200,135,58,0.08);border:1px solid rgba(200,135,58,0.2);border-radius:12px;padding:12px 14px;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:rgba(255,255,255,0.55);">المبلغ المراد شحنه</span>
+          <span style="font-size:20px;font-weight:900;color:var(--gold);" id="kashier-amount-val">— ج</span>
+        </div>
+
+        <!-- Kashier Pay Button -->
+        <button onclick="goToKashier()"
+          style="width:100%;padding:16px;background:linear-gradient(135deg,#1a6fad,#1558a0);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:800;font-family:Cairo,sans-serif;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;">
+          <span style="font-size:20px;">💳</span> ادفع عبر كاشير بأمان
+        </button>
+        <div style="text-align:center;margin-top:8px;font-size:11px;color:rgba(255,255,255,0.3);">
+          🔒 مدفوعات آمنة — مدعوم من Kashier
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div
+        style="background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:14px;padding:14px 16px;font-size:13px;color:rgba(255,255,255,0.6);line-height:2;">
+        <div style="font-weight:800;color:#3498DB;margin-bottom:6px;">ℹ️ إزاي بيشتغل؟</div>
+        <div>1️⃣ اختار المبلغ واضغط "ادفع عبر كاشير".</div>
+        <div>2️⃣ بتتحول لصفحة دفع كاشير الآمنة — ادفع بالكارت أو المحفظة.</div>
+        <div>3️⃣ بعد الدفع الأدمن بيشوف الدفعة ويضيفلك الرصيد.</div>
+        <div>4️⃣ هتوصلك إشعار إن الرصيد اتضاف ✅</div>
+      </div>
+    </div>
+
+    <!-- TAB: COMMISSION TIERS -->
+    <div class="wallet-tab-content" id="wtab-commission">
+      <div class="wallet-form-card">
+        <div class="wallet-form-title">📊 نسب العمولة حسب المستوى</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:1.2rem;line-height:1.7;">
+          العمولة بتتحسب من سعر الطلب المتفق عليه. كلما أنجزت طلبات أكتر، كلما انخفضت نسبتك!
+        </p>
+        <div style="overflow-x:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+          <table class="commission-table">
+            <thead>
+              <tr>
+                <th>المستوى</th>
+                <th>عدد الطلبات المنجزة</th>
+                <th>نسبة العمولة</th>
+                <th>حالتك</th>
+              </tr>
+            </thead>
+            <tbody id="commission-tiers-tbody"></tbody>
+          </table>
+        </div>
+        <div
+          style="margin-top:1.2rem;background:rgba(200,135,58,0.08);border:1px solid rgba(200,135,58,0.2);border-radius:12px;padding:12px 14px;">
+          <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:6px;">🧮 مثال عملي</div>
+          <div id="commission-example" style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.9;"></div>
+        </div>
+      </div>
+      <!-- Simulate -->
+      <div class="wallet-form-card">
+        <div class="wallet-form-title">🧮 احسب العمولة</div>
+        <div class="form-group">
+          <label>سعر الطلب (بالجنيه)</label>
+          <input type="number" id="sim-order-price" placeholder="مثال: 500" min="1" oninput="simulateCommission()">
+        </div>
+        <div id="sim-result"
+          style="display:none;margin-top:0.8rem;background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;">
+            <span style="color:rgba(255,255,255,0.5);">نسبة عمولتك الحالية</span>
+            <span style="font-weight:800;color:var(--gold);" id="sim-rate">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;">
+            <span style="color:rgba(255,255,255,0.5);">قيمة العمولة المخصومة</span>
+            <span style="font-weight:800;color:#E74C3C;" id="sim-commission">—</span>
+          </div>
+          <div
+            style="display:flex;justify-content:space-between;font-size:15px;font-weight:900;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;margin-top:4px;">
+            <span style="color:rgba(255,255,255,0.7);">صافي للصنايعي</span>
+            <span style="color:#2ECC71;" id="sim-net">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: HISTORY -->
+    <div class="wallet-tab-content" id="wtab-history">
+      <div id="wallet-txn-list" class="txn-list">
+        <div style="text-align:center;padding:3rem 1rem;color:rgba(255,255,255,0.3);">
+          <div style="font-size:3rem;margin-bottom:10px;">📋</div>
+          <div style="font-size:14px;">لا يوجد معاملات بعد</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end wallet-section -->
+</div><

@@ -1,0 +1,30 @@
+<div id="page-chat" class="page">
+    <div class="chat-page">
+      <!-- Chat List View -->
+      <div id="chat-list-view">
+        <h2 style="color:#C8873A;font-size:20px;margin-bottom:20px;">💬 رسائلي</h2>
+        <div id="chat-list" class="chat-list">
+          <p style="color:rgba(255,255,255,0.4);text-align:center;padding:2rem;">مفيش محادثات لحد دلوقتي</p>
+        </div>
+      </div>
+      <!-- Chat Window View -->
+      <div id="chat-window-view" style="display:none;">
+        <div class="chat-window">
+          <div class="chat-header">
+            <button class="chat-back" onclick="showChatList()">→</button>
+            <div class="chat-avatar" id="chat-partner-avatar">👤</div>
+            <div style="flex:1;">
+              <div class="chat-name" id="chat-partner-name">-</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4);" id="chat-partner-role">-</div>
+            </div>
+          </div>
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-input-area">
+            <button class="chat-send-btn" onclick="sendMessage()">➤</button>
+            <input class="chat-input" id="chat-input" placeholder="اكتب رسالة..."
+              onkeydown="if(event.key==='Enter')sendMessage()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

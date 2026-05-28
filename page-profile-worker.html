@@ -1,0 +1,119 @@
+<div id="page-profile-worker" class="page">
+    <div class="profile-page">
+
+      <div class="profile-cover" style="background: linear-gradient(130deg, #1A3A1A 0%, #C8873A 55%, #1A5276 100%);">
+      </div>
+
+      <div class="profile-header-row">
+        <div style="display:flex; align-items:flex-end; gap:16px;">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" style="font-size:2.6rem;" id="worker-avatar">🔧</div>
+            <div class="profile-status-dot online"></div>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-input-worker').click()"
+              title="تغيير الصورة">📷</div>
+            <input type="file" id="avatar-input-worker" accept="image/*" onchange="handleAvatarUpload(this, 'worker')">
+          </div>
+          <div style="padding-bottom:6px;">
+            <div class="profile-name">-</div>
+            <div class="profile-role">🔧 صنايعي</div>
+            <div class="profile-meta">📍 - &nbsp;·&nbsp; -</div>
+          </div>
+        </div>
+        <div class="profile-actions" style="padding-bottom:6px;">
+          <button class="btn-edit" onclick="showEditModal('worker')"><i class="fas fa-pen"></i> تعديل البروفيل</button>
+          <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        </div>
+      </div>
+
+      <!-- availability toggle -->
+      <div class="availability-toggle">
+        <div>
+          <div class="toggle-label">🟢 الحالة: متاح للعمل دلوقتي</div>
+          <div class="toggle-sublabel">فعّل أو عطّل استقبال الطلبات الجديدة</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="availability-checkbox" onchange="updateAvailability(this)">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <!-- stats strip -->
+      <div class="stat-strip">
+        <div class="stat-box">
+          <div class="stat-box-num" id="worker-stat-reviews">0</div>
+          <div class="stat-box-label">تقييم</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num" id="worker-stat-rating">-</div>
+          <div class="stat-box-label">متوسط التقييم</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num" id="worker-stat-done">0</div>
+          <div class="stat-box-label">طلب منجز</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-num" id="worker-stat-price">-</div>
+          <div class="stat-box-label">السعر/ساعة</div>
+        </div>
+      </div>
+
+      <!-- info + skills cards -->
+      <div class="profile-grid">
+        <div class="profile-card">
+          <div class="profile-card-title">البيانات الشخصية</div>
+          <div class="info-row">
+            <span class="info-icon">📱</span>
+            <div>
+              <div class="info-label">التليفون</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">📧</span>
+            <div>
+              <div class="info-label">الإيميل</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <div>
+              <div class="info-label">منطقة العمل</div>
+              <div class="info-val">-</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-card-title">المهارات والتخصصات</div>
+          <div class="skills-tags" id="worker-skills-tags" style="margin-bottom:14px;">
+            <span style="color:rgba(255,255,255,0.3);font-size:13px;">لا توجد مهارات مضافة بعد</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- bio section -->
+      <div id="worker-bio-section" style="display:none; margin-bottom:20px;">
+        <div class="profile-card">
+          <div class="profile-card-title">📝 نبذة شخصية</div>
+          <p id="worker-bio-text" style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.8;"></p>
+        </div>
+      </div>
+
+      <!-- ratings received -->
+      <div class="profile-section-title">⭐ آخر التقييمات</div>
+      <div id="worker-ratings-list" style="margin-bottom:24px;display:flex;flex-direction:column;gap:10px;">
+        <p style="color:rgba(255,255,255,0.3);text-align:center;padding:1rem;font-size:13px;">لا توجد تقييمات بعد</p>
+      </div>
+
+      <!-- active requests -->
+      <div class="profile-section-title">📋 الطلبات الجارية</div>
+      <div class="orders-list" id="worker-orders-list" style="margin-bottom:24px;">
+        <p style="color:rgba(255,255,255,0.3);text-align:center;padding:1.5rem;font-size:14px;">لا توجد طلبات جارية</p>
+      </div>
+      <div style="text-align:center;margin-bottom:20px;">
+        <button class="btn-primary" onclick="showUnifiedOrders()" style="justify-content:center;">📂 كل
+          الطلبات</button>
+      </div>
+
+    </div>
+  </div>
