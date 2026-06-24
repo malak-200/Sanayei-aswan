@@ -1,0 +1,752 @@
+/* ===== GUIDE PAGE STYLES ===== */
+    .guide-hero {
+      background: linear-gradient(160deg, #1C1A17 0%, #1a1208 60%, #0d0a05 100%);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.15);
+    }
+
+    .guide-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(200,135,58,0.07)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .guide-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200, 135, 58, 0.12);
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .guide-hero h1 {
+      font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+      position: relative;
+      margin-bottom: 0.7rem;
+    }
+
+    .guide-hero h1 span {
+      color: var(--gold);
+    }
+
+    .guide-hero p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    .guide-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      padding: 1.5rem 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .guide-tab {
+      padding: 10px 28px;
+      border-radius: 25px;
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .guide-tab.active {
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(200, 135, 58, 0.35);
+    }
+
+    .guide-tab:hover:not(.active) {
+      border-color: rgba(200, 135, 58, 0.6);
+      color: #fff;
+    }
+
+    .guide-section {
+      display: none;
+      padding: 2rem 1.5rem 4rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .guide-section.active {
+      display: block;
+    }
+
+    .guide-intro {
+      background: rgba(200, 135, 58, 0.07);
+      border: 1px solid rgba(200, 135, 58, 0.2);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .guide-steps-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guide-steps-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 135, 58, 0.2);
+    }
+
+    .guide-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .guide-step:hover {
+      border-color: rgba(200, 135, 58, 0.25);
+    }
+
+    .guide-step-num {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .guide-step-body {
+      flex: 1;
+    }
+
+    .guide-step-body h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .guide-step-body p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+    }
+
+    .guide-step-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .guide-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 2rem;
+    }
+
+    .guide-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .guide-card:hover {
+      border-color: rgba(200, 135, 58, 0.35);
+      background: rgba(200, 135, 58, 0.05);
+    }
+
+    .guide-card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .guide-card h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .guide-card p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.6;
+    }
+
+    .guide-tip {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(46, 204, 113, 0.07);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+    }
+
+    .guide-tip-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .guide-warn {
+      background: rgba(231, 76, 60, 0.07);
+      border-color: rgba(231, 76, 60, 0.2);
+    }
+
+    .guide-warn .guide-tip-icon {
+      color: #E74C3C;
+    }
+
+    .guide-cta {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .guide-cta-btn {
+      padding: 14px 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #C8873A, #8B5E25);
+      border: none;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(200, 135, 58, 0.4);
+      transition: all 0.2s;
+    }
+
+    .guide-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(200, 135, 58, 0.55);
+    }
+
+    @media(max-width:600px) {
+      .guide-hero {
+        padding: 2rem 1rem 1.5rem;
+      }
+
+      .guide-section {
+        padding: 1.5rem 1rem 5rem;
+      }
+
+      .guide-cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+/* ===== WALLET PAGE STYLES ===== */
+    /* ===== WALLET PAGE STYLES ===== */
+    .wallet-hero {
+      background: linear-gradient(160deg, #1C1A17 0%, #1a1208 60%, #0d0a05 100%);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wallet-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(200,135,58,0.07)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wallet-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200, 135, 58, 0.12);
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .wallet-balance-card {
+      background: linear-gradient(135deg, rgba(200, 135, 58, 0.18) 0%, rgba(139, 94, 37, 0.12) 100%);
+      border: 1.5px solid rgba(200, 135, 58, 0.4);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 400px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wallet-balance-card::before {
+      content: '💰';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 80px;
+      opacity: 0.06;
+      transform: rotate(-15deg);
+    }
+
+    .wallet-balance-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wallet-balance-amount {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .wallet-balance-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .wallet-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wallet-stat-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+    }
+
+    .wallet-stat-box .wsb-num {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .wallet-stat-box .wsb-lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 600;
+    }
+
+    /* Wallet Tabs */
+    .wallet-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .wallet-tab {
+      padding: 12px 20px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.45);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .wallet-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .wallet-tab-content {
+      display: none;
+    }
+
+    .wallet-tab-content.active {
+      display: block;
+    }
+
+    /* Deposit Form */
+    .wallet-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+
+    .wallet-form-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .wallet-form-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-amounts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .quick-amount-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(200, 135, 58, 0.3);
+      background: rgba(200, 135, 58, 0.07);
+      color: var(--gold);
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .quick-amount-btn:hover,
+    .quick-amount-btn.selected {
+      background: rgba(200, 135, 58, 0.2);
+      border-color: var(--gold);
+    }
+
+    /* Commission Tiers */
+    .commission-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .commission-table th {
+      background: rgba(200, 135, 58, 0.1);
+      color: var(--gold);
+      padding: 10px 14px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .commission-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+    }
+
+    .commission-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .commission-table tr:hover td {
+      background: rgba(200, 135, 58, 0.04);
+    }
+
+    .tier-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .tier-badge.bronze {
+      background: rgba(205, 127, 50, 0.15);
+      color: #CD7F32;
+      border: 1px solid rgba(205, 127, 50, 0.3);
+    }
+
+    .tier-badge.silver {
+      background: rgba(192, 192, 192, 0.12);
+      color: #C0C0C0;
+      border: 1px solid rgba(192, 192, 192, 0.25);
+    }
+
+    .tier-badge.gold {
+      background: rgba(200, 135, 58, 0.2);
+      color: var(--gold);
+      border: 1px solid rgba(200, 135, 58, 0.4);
+    }
+
+    .tier-badge.platinum {
+      background: rgba(46, 204, 113, 0.12);
+      color: #2ECC71;
+      border: 1px solid rgba(46, 204, 113, 0.25);
+    }
+
+    /* Transactions */
+    .txn-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .txn-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: all 0.18s;
+    }
+
+    .txn-item:hover {
+      border-color: rgba(200, 135, 58, 0.25);
+    }
+
+    .txn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .txn-icon.deposit {
+      background: rgba(46, 204, 113, 0.15);
+    }
+
+    .txn-icon.deduction {
+      background: rgba(192, 57, 43, 0.15);
+    }
+
+    .txn-icon.commission {
+      background: rgba(200, 135, 58, 0.15);
+    }
+
+    .txn-body {
+      flex: 1;
+    }
+
+    .txn-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .txn-date {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .txn-amount {
+      font-size: 15px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .txn-amount.plus {
+      color: #2ECC71;
+    }
+
+    .txn-amount.minus {
+      color: #E74C3C;
+    }
+
+    /* Balance low warning */
+    .wallet-warning {
+      background: rgba(192, 57, 43, 0.1);
+      border: 1.5px solid rgba(192, 57, 43, 0.35);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+
+    .wallet-warning-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .wallet-warning-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .wallet-warning-text strong {
+      color: #E74C3C;
+    }
+
+    /* Deposit success */
+    .deposit-success {
+      background: rgba(46, 204, 113, 0.1);
+      border: 1.5px solid rgba(46, 204, 113, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    /* Commission Preview Box */
+    .commission-preview {
+      background: rgba(200, 135, 58, 0.08);
+      border: 1.5px solid rgba(200, 135, 58, 0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .commission-preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(200, 135, 58, 0.12);
+      font-size: 13px;
+    }
+
+    .commission-preview-row:last-child {
+      border-bottom: none;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .commission-preview-row .cp-label {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .commission-preview-row .cp-value {
+      font-weight: 700;
+    }
+
+    /* Admin wallet panel */
+    .admin-wallet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .admin-wallet-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .admin-wallet-item .awi-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(200, 135, 58, 0.3), rgba(200, 135, 58, 0.1));
+      border: 1px solid rgba(200, 135, 58, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .admin-wallet-item .awi-info {
+      flex: 1;
+    }
+
+    .admin-wallet-item .awi-name {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .admin-wallet-item .awi-bal {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .admin-wallet-item .awi-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 480px) {
+      .wallet-balance-amount {
+        font-size: 2.4rem;
+      }
+
+      .wallet-stats-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .commission-table th,
+      .commission-table td {
+        padding: 8px 10px;
+      }
+    }
